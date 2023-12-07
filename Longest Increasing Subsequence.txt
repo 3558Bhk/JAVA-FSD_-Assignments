@@ -1,0 +1,50 @@
+package mypackage;
+import java.util.Arrays;
+
+public class LongestIncreasingSubsequence {
+    public static void main(String[] args) {
+        int[] numbers = {10, 22, 9, 33, 21, 50, 41, 60, 80};
+
+        int[] lisLengths = findLISLengths(numbers);
+        int maxLength = Arrays.stream(lisLengths).max().orElse(0);
+
+        System.out.println("Original Array: " + Arrays.toString(numbers));
+        System.out.println("Length of Longest Increasing Subsequence: " + maxLength);
+        System.out.println("Longest Increasing Subsequence: " + Arrays.toString(findLIS(numbers, lisLengths)));
+    }
+
+    // Method to find lengths of LIS ending at each index
+    private static int[] findLISLengths(int[] numbers) {
+        int n = numbers.length;
+        int[] lisLengths = new int[n];
+
+        Arrays.fill(lisLengths, 1);
+
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (numbers[i] > numbers[j] && lisLengths[i] < lisLengths[j] + 1) {
+                    lisLengths[i] = lisLengths[j] + 1;
+                }
+            }
+        }
+
+        return lisLengths;
+    }
+
+    // Method to reconstruct the LIS
+    private static int[] findLIS(int[] numbers, int[] lisLengths) {
+        int maxLength = Arrays.stream(lisLengths).max().orElse(0);
+        int[] lis = new int[maxLength];
+        int index = 0;
+
+        for (int i = numbers.length - 1; i >= 0; i--) {
+            if (lisLengths[i] == maxLength) {
+                lis[--maxLength] = numbers[i];
+                index = i;
+            }
+        }
+
+        return lis;
+    }
+}
+
