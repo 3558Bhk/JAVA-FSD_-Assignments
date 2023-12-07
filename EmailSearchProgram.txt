@@ -1,0 +1,30 @@
+import java.util.Scanner;
+public class EmailSearchProgram {
+    public static void main(String[] args) {
+        // Array of email IDs to search
+      String[] emailArray = {"Sai@gmail.com", "Sarvani@yahoo.com", "SIddiq@hotmail.com", "shiva@apple.com"};
+        // Scanner for user input
+        Scanner scanner = new Scanner(System.in);
+
+        // Prompt user for input
+        System.out.println("Array of Email IDs: " + String.join(", ", emailArray));
+        System.out.print("Enter an email ID to search: ");
+        String searchEmail = scanner.nextLine();
+
+        // Perform the search
+        boolean found = false;
+        for (String email : emailArray) {
+            if (email.equals(searchEmail)) {
+                found = true;
+                break;
+            }
+        }
+
+        // Display result
+        if (found) {
+            System.out.println("Email ID found in the array!");
+        } else {
+            System.out.println("Email ID not found in the array.");
+        }
+    }
+}
